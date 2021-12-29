@@ -1,8 +1,9 @@
 import { StyleSheet, Text, View, TextInput, Button, FlatList} from "react-native";
 import React , {useState} from "react";
 
+
 export default function App() {
-  
+
   const [amount, setAmount] = useState();
   const [Desc, setDesc] = useState("");
   const [storeExpense, setStoreExpense] = useState([]);
