@@ -9,25 +9,19 @@ import {
 import React, { useState } from "react";
 import { useEffect } from "react";
 
+import Header from "./components/Header";
+import ListItems from "./components/ListItems";
+import Input from "./components/Input";
+
 export default function App() {
-  const [amount, setAmount] = useState();
-  const [Desc, setDesc] = useState("");
-  // const [storeExpense, setStoreExpense] = useState([]);
-  // const [storeIncome, setStoreIncome] = useState([]);
+
   const [storeItems, setStoreItems] = useState([]);
   const [inc, setInc] = useState();
   const [exp, setExp] = useState();
 
-  const handleAmount = (inputedAmount) => {
-    let num = Number(inputedAmount);
-    setAmount(num);
-  };
+ 
 
-  const handleDesc = (inputedDesc) => {
-    setDesc(inputedDesc);
-  };
-
-  const handleExpenseClick = () => {
+  const handleExpenseClick = (amount , Desc) => {
     console.log("Expense is clicked");
     setStoreItems((currentState) => [
       ...currentState,
@@ -35,7 +29,7 @@ export default function App() {
     ]);
   };
 
-  const handleIncomeClick = () => {
+  const handleIncomeClick = ( amount , Desc) => {
     console.log("Income is clicked");
     setStoreItems((currentState) => [
       ...currentState,
@@ -59,33 +53,19 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text>Expense Tracker</Text>
-
+     
+      <Header />
       <Text>Amount left : {inc - exp} </Text>
       <Text>Expenses : {exp} </Text>
 
-      <TextInput
-        placeholder="Enter Amount"
-        onChangeText={handleAmount}
-        value={amount}
-      />
-      <TextInput
-        placeholder="Enter Description"
-        onChangeText={handleDesc}
-        value={Desc}
-      />
-      <Button title="Expense" onPress={handleExpenseClick} />
-      <Button title="Income" onPress={handleIncomeClick} />
+      <Input handleExpenseButton={handleExpenseClick} handleIncomeButton={handleIncomeClick} />
+
       <Text>list</Text>
       <FlatList
         keyExtractor={(item, index) => index}
         data={storeItems}
         renderItem={(itemData) => (
-          <Text>
-            {itemData.item.amount}
-            {itemData.item.Desc}
-            {itemData.item.category}
-          </Text>
+          <ListItems amount={itemData.item.amount} Desc={itemData.item.Desc} category={itemData.item.category} />
         )}
       />
 
